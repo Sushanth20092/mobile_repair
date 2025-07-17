@@ -22,7 +22,7 @@ async function uploadToSupabaseStorage(file, folder = "mobile-repair") {
 // Upload multiple images (max 5)
 router.post("/images", auth, upload.array("images", 5), async (req, res) => {
   try {
-    if (!req.files || req.files.length === 0 || req.files.length > 5) {
+    if (!Array.isArray(req.files) || req.files.length === 0 || req.files.length > 5) {
       return res.status(400).json({ message: "Upload 1-5 images only" })
     }
     const imageUrls = []
